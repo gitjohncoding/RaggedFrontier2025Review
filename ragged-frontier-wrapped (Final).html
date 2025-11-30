@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragged Frontier 2025 Wrapped</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0d0d0d;
+            --bg-card: #1a1a1a;
+            --accent-gold: #d4a853;
+            --accent-rust: #c45c3e;
+            --accent-sage: #7a9e7e;
+            --accent-blue: #5b7fa3;
+            --text-primary: #f5f0e8;
+            --text-secondary: #a8a095;
+            --text-muted: #6b6560;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Each card is a full-screen section */
+        .card {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-inner {
+            max-width: 800px;
+            width: 100%;
+            animation: fadeSlideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        a.post-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a.post-link:hover {
+            color: var(--accent-gold);
+        }
+
+        cite a.post-link {
+            color: var(--text-muted);
+        }
+
+        cite a.post-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .superlative-source a.post-link {
+            color: var(--accent-gold);
+        }
+
+        .superlative-source a.post-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CARD 1: INTRO */
+        .card-intro {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1612 100%);
+            text-align: center;
+        }
+
+        .card-intro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(212, 168, 83, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(196, 92, 62, 0.06) 0%, transparent 40%);
+            animation: slowDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes slowDrift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-2%, 2%); }
+        }
+
+        .year-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 8px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .main-title em {
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto 60px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        .scroll-hint svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-muted);
+        }
+
+        /* CARD 2: BIG NUMBERS */
+        .card-stats {
+            background: var(--bg-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .stat-item {
+            padding: 30px 20px;
+            border: 1px solid rgba(245, 240, 232, 0.1);
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-rust));
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+        }
+
+        .stat-context {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stat-context span {
+            color: var(--accent-gold);
+        }
+
+        /* CARD 3: RHYTHM */
+        .card-rhythm {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #12100e 100%);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--accent-rust);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 50px;
+        }
+
+        .month-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 200px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        .month-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 50px;
+            background: linear-gradient(180deg, var(--accent-gold) 0%, var(--accent-rust) 100%);
+            border-radius: 4px 4px 0 0;
+            transition: transform 0.3s ease;
+        }
+
+        .bar:hover {
+            transform: scaleY(1.05);
+        }
+
+        .month-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .bar-count {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .rhythm-note {
+            margin-top: 40px;
+            padding: 24px;
+            background: rgba(212, 168, 83, 0.05);
+            border-left: 2px solid var(--accent-gold);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* CARD 4: SHAKESPEARE */
+        .card-shakespeare {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .card-shakespeare::before {
+            content: '"';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            font-family: 'Playfair Display', serif;
+            font-size: 30vw;
+            color: rgba(212, 168, 83, 0.03);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .play-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .play-item {
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(245, 240, 232, 0.05);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .play-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .play-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-sage);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .play-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .play-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem;
+            color: var(--accent-sage);
+            margin-bottom: 4px;
+        }
+
+        .bloom-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(122, 158, 126, 0.1) 0%, rgba(122, 158, 126, 0.02) 100%);
+            border: 1px solid rgba(122, 158, 126, 0.2);
+        }
+
+        .bloom-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--bg-dark);
+            flex-shrink: 0;
+        }
+
+        .bloom-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .bloom-text strong {
+            color: var(--text-primary);
+        }
+
+        .shakespeare-commentary {
+            max-width: 650px;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .shakespeare-commentary em {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .shakespeare-quote {
+            max-width: 600px;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(122, 158, 126, 0.08);
+            border-left: 3px solid var(--accent-sage);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .shakespeare-quote cite {
+            display: block;
+            margin-top: 16px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+
+        /* CARD 5: MUSIC */
+        .card-music {
+            background: linear-gradient(135deg, #0d0d0d 0%, #0d1015 100%);
+        }
+
+        .music-stat {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 12vw, 8rem);
+            color: var(--accent-blue);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .music-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+        }
+
+        .genre-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .genre-tag {
+            padding: 10px 20px;
+            background: rgba(91, 127, 163, 0.1);
+            border: 1px solid rgba(91, 127, 163, 0.3);
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .genre-tag:hover {
+            background: rgba(91, 127, 163, 0.2);
+        }
+
+        .hat-tip {
+            text-align: center;
+            padding: 24px;
+            background: rgba(91, 127, 163, 0.05);
+            border-radius: 8px;
+        }
+
+        .hat-tip-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .hat-tip-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .hat-tip-count {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .music-commentary {
+            max-width: 550px;
+            margin: 0 auto 40px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .music-commentary em {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .music-quote {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            padding: 30px;
+            background: rgba(91, 127, 163, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            text-align: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .music-quote cite {
+            display: block;
+            margin-top: 16px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+
+        /* CARD 6: SUPERLATIVES */
+        .card-superlatives {
+            background: var(--bg-dark);
+            min-height: auto;
+            padding: 80px 24px;
+        }
+
+        .superlatives-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .superlative {
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid rgba(245, 240, 232, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .superlative::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .superlative:nth-child(1)::before { background: var(--accent-gold); }
+        .superlative:nth-child(2)::before { background: var(--accent-rust); }
+        .superlative:nth-child(3)::before { background: var(--accent-sage); }
+        .superlative:nth-child(4)::before { background: var(--accent-blue); }
+        .superlative:nth-child(5)::before { background: var(--accent-gold); }
+        .superlative:nth-child(6)::before { background: var(--accent-rust); }
+
+        .superlative-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .superlative-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .superlative-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .superlative-source {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        /* CARD 7: EXTREMES */
+        .card-extremes {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #12100e 100%);
+        }
+
+        .extremes-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .extreme-box {
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid rgba(245, 240, 232, 0.05);
+        }
+
+        .extreme-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .extreme-label.longest { color: var(--accent-rust); }
+        .extreme-label.shortest { color: var(--accent-sage); }
+
+        .extreme-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .extreme-stat {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 8px;
+        }
+
+        .extreme-stat.longest { color: var(--accent-rust); }
+        .extreme-stat.shortest { color: var(--accent-sage); }
+
+        .extreme-context {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* CARD 8: CLOSING */
+        .card-closing {
+            background: linear-gradient(135deg, #1a1612 0%, #0d0d0d 100%);
+            text-align: center;
+        }
+
+        .closing-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-style: italic;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.5;
+        }
+
+        .closing-attribution {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-bottom: 60px;
+        }
+
+        .blog-link {
+            display: inline-block;
+            padding: 16px 40px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .blog-link:hover {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+
+        /* CARD 8: VOICE */
+        .card-voice {
+            background: linear-gradient(135deg, #12100e 0%, #1a1612 100%);
+        }
+
+        .voice-quotes {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .voice-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding-left: 24px;
+            border-left: 2px solid var(--accent-gold);
+            position: relative;
+        }
+
+        .voice-quote::before {
+            content: '"';
+            position: absolute;
+            left: -8px;
+            top: -20px;
+            font-size: 4rem;
+            color: rgba(212, 168, 83, 0.15);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .voice-quote cite {
+            display: block;
+            margin-top: 12px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .month-bars {
+                height: 150px;
+                gap: 6px;
+            }
+
+            .month-label {
+                font-size: 0.6rem;
+            }
+
+            .play-list {
+                grid-template-columns: 1fr;
+            }
+
+            .extremes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .bloom-note {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CARD 1: INTRO -->
+        <section class="card card-intro">
+            <div class="card-inner">
+                <div class="year-badge">2025 Year in Review</div>
+                <h1 class="main-title">Footnotes from<br>the <em>Ragged Frontier</em></h1>
+                <p class="subtitle">A year of pressing at the edges of things</p>
+            </div>
+            <div class="scroll-hint">
+                <span>Scroll</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M19 12l-7 7-7-7"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- CARD 2: BIG NUMBERS -->
+        <section class="card card-stats">
+            <div class="card-inner">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">53</div>
+                        <div class="stat-label">Posts Published</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">34,047</div>
+                        <div class="stat-label">Words Written</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">642</div>
+                        <div class="stat-label">Avg. Words/Post</div>
+                    </div>
+                </div>
+                <p class="stat-context">
+                    That's roughly <span>113 pages</span> of a paperback novel—or one very long letter to no one in particular.
+                </p>
+            </div>
+        </section>
+
+        <!-- CARD 3: RHYTHM -->
+        <section class="card card-rhythm">
+            <div class="card-inner">
+                <div class="section-label">Posting Rhythm</div>
+                <h2 class="section-title">The Year in Motion</h2>
+                <div class="month-bars">
+                    <div class="month-bar">
+                        <div class="bar-count">14</div>
+                        <div class="bar" style="height: 93%;"></div>
+                        <div class="month-label">Mar</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">15</div>
+                        <div class="bar" style="height: 100%;"></div>
+                        <div class="month-label">Apr</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">4</div>
+                        <div class="bar" style="height: 27%;"></div>
+                        <div class="month-label">May</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">3</div>
+                        <div class="bar" style="height: 20%;"></div>
+                        <div class="month-label">Jun</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">4</div>
+                        <div class="bar" style="height: 27%;"></div>
+                        <div class="month-label">Jul</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">4</div>
+                        <div class="bar" style="height: 27%;"></div>
+                        <div class="month-label">Aug</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">3</div>
+                        <div class="bar" style="height: 20%;"></div>
+                        <div class="month-label">Sep</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">3</div>
+                        <div class="bar" style="height: 20%;"></div>
+                        <div class="month-label">Oct</div>
+                    </div>
+                    <div class="month-bar">
+                        <div class="bar-count">3</div>
+                        <div class="bar" style="height: 20%;"></div>
+                        <div class="month-label">Nov</div>
+                    </div>
+                </div>
+                <div class="rhythm-note">
+                    The spring burst: 29 posts in March and April alone. Then the long, contemplative summer.
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 4: SHAKESPEARE -->
+        <section class="card card-shakespeare">
+            <div class="card-inner">
+                <div class="section-label">The Shakespeare Project</div>
+                <h2 class="section-title" style="margin-bottom: 30px;">11 Plays with Harold Bloom</h2>
+                <div class="shakespeare-commentary">
+                    This series took Bloom as sparring partner, not gospel. The series had a genuine critical voice — defending Coriolanus as underrated, finding contemporary political relevance in Richard II and Henry VI without forcing it, consistently championing <em>performance</em> over just reading. And a refusal of easy hierarchies: Father Mapple over Ahab energy, but for the canon.
+                </div>
+                <blockquote class="shakespeare-quote">
+                    "There is a comfort, a magnetism, to this character that is hard to capture in words. One is better served by simply enjoying it."
+                    <cite>— <a href="https://raggedfrontier.wordpress.com/2025/05/16/as-you-like-it/" class="post-link" target="_blank">As You Like It</a>, on Rosalind</cite>
+                </blockquote>
+                <div class="play-list">
+                    <div class="play-item">
+                        <div class="play-number">Part I</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/03/19/the-merry-wives-of-windsor/" class="post-link" target="_blank">The Merry Wives of Windsor</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part II</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/04/21/much-ado-about-nothing/" class="post-link" target="_blank">Much Ado About Nothing</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part III</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/05/07/henry-iv-parts-i-and-ii/" class="post-link" target="_blank">Henry IV, Parts I & II</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part IV</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/05/16/as-you-like-it/" class="post-link" target="_blank">As You Like It</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part V</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/05/27/henry-v/" class="post-link" target="_blank">Henry V</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part VI</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/06/11/king-lear-just-the-love/" class="post-link" target="_blank">King Lear</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part VII</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/06/30/the-tempest-just-the-absurdity/" class="post-link" target="_blank">The Tempest</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part VIII</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/08/25/shakespeares-most-underrated-play-the-case-for-coriolanus/" class="post-link" target="_blank">Coriolanus</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part IX</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/09/05/unforgivable-forgiveness-the-two-gentlemen-of-verona/" class="post-link" target="_blank">Two Gentlemen of Verona</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part X</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/11/05/richard-ii-just-the-takeaways/" class="post-link" target="_blank">Richard II</a>
+                    </div>
+                    <div class="play-item">
+                        <div class="play-number">Part XI</div>
+                        <a href="https://raggedfrontier.wordpress.com/2025/11/26/henry-vi-just-the-takeaways/" class="post-link" target="_blank">Henry VI (all three parts)</a>
+                    </div>
+                </div>
+                <div class="bloom-note">
+                    <div class="bloom-avatar">HB</div>
+                    <div class="bloom-text">
+                        <strong>"One ought never to underestimate Shakespeare."</strong><br><br>
+                        The adopted mantra for this series, borrowed from Bloom—even when disagreeing with his thesis that Shakespeare "invented the human."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 5: MUSIC -->
+        <section class="card card-music">
+            <div class="card-inner" style="text-align: center;">
+                <div class="section-label">Music I Liked This Week</div>
+                <div class="music-stat">10</div>
+                <div class="music-subtitle">editions of the recurring series</div>
+                <div class="genre-tags">
+                    <span class="genre-tag">Nashville Sound</span>
+                    <span class="genre-tag">Philly Soul</span>
+                    <span class="genre-tag">Folk Standards</span>
+                    <span class="genre-tag">60s French Pop</span>
+                    <span class="genre-tag">Gospel</span>
+                    <span class="genre-tag">Beatles Deep Cuts</span>
+                    <span class="genre-tag">Minstrel Banjo</span>
+                    <span class="genre-tag">Ethiopian Piano</span>
+                </div>
+                <div class="music-commentary">
+                    Not random eclecticism — each post explained <em>why</em> something mattered: the Nashville Sound's history, Philly Soul's innovations, the problematic heritage of folk standards. A weekly music dump that deserved footnotes, and got them.
+                </div>
+                <blockquote class="music-quote">
+                    "These are songs to be listened to in grocery store parking lots on Friday nights, in cars with the windows down. Teen spirit, to the extent there is such a thing, still lives in this genre."
+                    <cite>— <a href="https://raggedfrontier.wordpress.com/2025/08/20/miltw-new-music-edition/" class="post-link" target="_blank">MILTW: New Music Edition</a>, on Beach Bunny</cite>
+                </blockquote>
+                <div class="hat-tip">
+                    <div class="hat-tip-label">Most Frequent Hat Tip</div>
+                    <div class="hat-tip-name">Toby</div>
+                    <div class="hat-tip-count">4 recommendations credited</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 6: SUPERLATIVES -->
+        <section class="card card-superlatives">
+            <div class="card-inner">
+                <div class="section-label">The 2025 Superlatives</div>
+                <h2 class="section-title" style="margin-bottom: 40px;">Awards Season</h2>
+                <div class="superlatives-grid">
+                    <div class="superlative">
+                        <div class="superlative-category">Most Niche Deep Dive</div>
+                        <div class="superlative-title">Counting Every Accusation of Treason in Henry VI</div>
+                        <div class="superlative-desc">
+                            With GPT's help, a complete census of the 57 times characters call each other "traitor" across all three parts. The data lives in a spreadsheet now. The charge becomes so common it's practically meaningless.
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/11/26/henry-vi-just-the-takeaways/" class="post-link" target="_blank">Henry VI: Just the Takeaways</a></div>
+                    </div>
+                    <div class="superlative">
+                        <div class="superlative-category">Most Likely to Start a Book Club Mutiny</div>
+                        <div class="superlative-title">Recommending Strindberg</div>
+                        <div class="superlative-desc">
+                            "I tried this with my book club and had a rebellion on my hands after The Father." The other two plays only solidified the suspicion that they were incorrect to cast the work aside.
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/03/20/strindberg-just-the-takeaways/" class="post-link" target="_blank">Strindberg: Just the Takeaways</a></div>
+                    </div>
+                    <div class="superlative">
+                        <div class="superlative-category">Hottest Contrarian Take</div>
+                        <div class="superlative-title">Father Mapple > Ahab</div>
+                        <div class="superlative-desc">
+                            "Despite his centrality to the plot, Ahab is one of the least interesting characters. The most interesting is Father Mapple (criminally underrepresented despite anchoring the best chapter)."
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/04/09/moby-dick-just-the-takeaways/" class="post-link" target="_blank">Moby Dick: Just the Takeaways</a></div>
+                    </div>
+                    <div class="superlative">
+                        <div class="superlative-category">Best Deployment of Continental Philosophy</div>
+                        <div class="superlative-title">Žižek's Chicken Joke</div>
+                        <div class="superlative-desc">
+                            A man cured of believing he's a grain of seed returns to the hospital in panic: "There's a chicken outside!" The doctor reminds him he knows he's not a seed. "Of course you and I know that—but does the chicken know?"
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/03/28/steinbecks-the-winter-of-our-discontent-just-the-epistemology/" class="post-link" target="_blank">Steinbeck's Winter of Our Discontent: Just the Epistemology</a></div>
+                    </div>
+                    <div class="superlative">
+                        <div class="superlative-category">Most Unexpected Genre Analysis</div>
+                        <div class="superlative-title">Road House as a Western</div>
+                        <div class="superlative-desc">
+                            A mysterious outsider arrives in a lawless town. Confronts a corrupt baron. Earns the love of a beautiful woman. Learns to tame the beast within. Sam Elliott is in it. It's a Western.
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/04/12/roadhouse-the-perfect-80s-western/" class="post-link" target="_blank">Road House: The Perfect 80's Western</a></div>
+                    </div>
+                    <div class="superlative">
+                        <div class="superlative-category">Peak "I Have a Philosophy Degree" Moment</div>
+                        <div class="superlative-title">The 2,200-Word Response to Scott Sumner</div>
+                        <div class="superlative-desc">
+                            Invoking Bergson's distinction between durée and temps to dismantle a Substack post about subjective time. "Sumner conflates raw lived time with retained, meaningful experience." The longest post of the year.
+                        </div>
+                        <div class="superlative-source">— <a href="https://raggedfrontier.wordpress.com/2025/10/04/on-subjective-time-a-response-to-scott-sumner/" class="post-link" target="_blank">On Subjective Time: A Response to Scott Sumner</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 7: EXTREMES -->
+        <section class="card card-extremes">
+            <div class="card-inner">
+                <div class="section-label">The Extremes</div>
+                <h2 class="section-title" style="margin-bottom: 40px;">From Epic to Ephemeral</h2>
+                <div class="extremes-container">
+                    <div class="extreme-box">
+                        <div class="extreme-label longest">Longest Post</div>
+                        <div class="extreme-stat longest">2,201</div>
+                        <div class="extreme-title"><a href="https://raggedfrontier.wordpress.com/2025/10/04/on-subjective-time-a-response-to-scott-sumner/" class="post-link" target="_blank">On Subjective Time: A Response to Scott Sumner</a></div>
+                        <div class="extreme-context">A philosophical dismantling that required invoking Bergson, critiquing memory science, and defending the heterogeneity of lived experience.</div>
+                    </div>
+                    <div class="extreme-box">
+                        <div class="extreme-label shortest">Shortest Post</div>
+                        <div class="extreme-stat shortest">108</div>
+                        <div class="extreme-title"><a href="https://raggedfrontier.wordpress.com/2025/07/04/if-you-came-from-mr-assorted-links/" class="post-link" target="_blank">If You Came from MR Assorted Links</a></div>
+                        <div class="extreme-context">A welcome mat for Tyler Cowen's readers. "This blog is quirky. This blog is philosophical. This blog is, at times, about Shakespeare."</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 8: SIGNATURE LINES -->
+        <section class="card card-voice">
+            <div class="card-inner">
+                <div class="section-label">Signature Lines</div>
+                <h2 class="section-title" style="margin-bottom: 50px;">The Voice</h2>
+                <div class="voice-quotes">
+                    <blockquote class="voice-quote">
+                        "The book is not too long."
+                        <cite>— <a href="https://raggedfrontier.wordpress.com/2025/04/09/moby-dick-just-the-takeaways/" class="post-link" target="_blank">Moby Dick: Just the Takeaways</a></cite>
+                    </blockquote>
+                    <blockquote class="voice-quote">
+                        "It might seem like a movie with this many fist fights probably wouldn't have explosions. It does."
+                        <cite>— <a href="https://raggedfrontier.wordpress.com/2025/04/12/roadhouse-the-perfect-80s-western/" class="post-link" target="_blank">Road House: The Perfect 80's Western</a></cite>
+                    </blockquote>
+                    <blockquote class="voice-quote">
+                        "The only thing that makes baseball worth watching is that it is so unbelievably fun to discuss."
+                        <cite>— <a href="https://raggedfrontier.wordpress.com/2025/04/03/torpedo-bats/" class="post-link" target="_blank">Torpedo Bats</a></cite>
+                    </blockquote>
+                    <blockquote class="voice-quote">
+                        "Bloom also commits a cardinal sin of academia, which is overrating the reach of literature."
+                        <cite>— <a href="https://raggedfrontier.wordpress.com/2025/04/15/harold-bloom-on-shakespeare-introduction/" class="post-link" target="_blank">Harold Bloom on Shakespeare: Introduction</a></cite>
+                    </blockquote>
+                    <blockquote class="voice-quote">
+                        "At the moment of approach, we spell out its fate by calling it by name: grass, or not grass."
+                        <cite>— <a href="https://raggedfrontier.wordpress.com/2025/07/03/thoughts-on-lawn-mowing/" class="post-link" target="_blank">Thoughts on Lawn Mowing</a></cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 9: CLOSING -->
+        <section class="card card-closing">
+            <div class="card-inner">
+                <p class="closing-quote">
+                    "Pressing at the edges of things"
+                </p>
+                <p class="closing-attribution">— The blog's tagline, and the year's guiding principle</p>
+                <a href="https://raggedfrontier.wordpress.com" class="blog-link" target="_blank">
+                    Visit the Frontier
+                </a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
